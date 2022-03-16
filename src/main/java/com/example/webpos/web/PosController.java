@@ -58,4 +58,11 @@ public class PosController {
         model.addAttribute("cart", posService.getCart());
         return "index";
     }
+
+    @GetMapping("/checkout")
+    public String checkout(Model model){
+        model.addAttribute("checkoutAmount", posService.checkout(posService.getCart()));
+        posService.checkout(posService.getCart());
+        return "paid";
+    }
 }

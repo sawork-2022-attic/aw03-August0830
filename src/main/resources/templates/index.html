@@ -191,7 +191,7 @@
                     </dl>
                     <dl class="dlist-align">
                         <dt>Total:</dt>
-                        <dd class="text-right h4 b"><span th:text = ${cart.total()*1.12}></span></dd>
+                        <dd class="text-right h4 b"><span th:text = ${cart.total()}></span></dd>
                     </dl>
                     <div class="row">
                         <div class="col-md-6">
@@ -199,7 +199,7 @@
                                     class="fa fa-times-circle "></i> Cancel </a>
                         </div>
                         <div class="col-md-6">
-                            <a href="#" class="btn  btn-primary btn-lg btn-block"><i class="fa fa-shopping-bag"></i>
+                            <a th:href="@{/checkout}" class="btn  btn-primary btn-lg btn-block"><i class="fa fa-shopping-bag"></i>
                                 Charge </a>
                         </div>
                     </div>

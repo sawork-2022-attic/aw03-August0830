@@ -13,6 +13,7 @@ import java.util.List;
 public class PosServiceImp implements PosService {
 
     private PosDB posDB;
+    private double checkoutAmount;
 
     @Autowired
     public void setPosDB(PosDB posDB) {
@@ -35,8 +36,10 @@ public class PosServiceImp implements PosService {
     }
 
     @Override
-    public void checkout(Cart cart) {
-
+    public double checkout(Cart cart) {
+        double amount = cart.total();
+        cart.removeAll();
+        return amount;
     }
 
     @Override

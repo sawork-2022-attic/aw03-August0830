@@ -10,7 +10,7 @@ public interface PosService {
 
     public Cart newCart();
 
-    public void checkout(Cart cart);
+    public double checkout(Cart cart);
 
     public void total(Cart cart);
 
