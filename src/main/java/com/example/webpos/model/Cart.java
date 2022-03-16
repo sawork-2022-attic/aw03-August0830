@@ -3,6 +3,7 @@ package com.example.webpos.model;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Data
@@ -11,7 +12,25 @@ public class Cart {
     private List<Item> items = new ArrayList<>();
 
     public boolean addItem(Item item) {
+        for(Item i:items){
+            if(i.hasSameProduct(item)){
+                return i.modifyItself(item.getQuantity()+i.getQuantity());
+            }
+        }
         return items.add(item);
+    }
+
+    public boolean modifyItem(Product product,int amount){
+        for(Iterator<Item> it = items.iterator();it.hasNext();){
+            Item item = it.next();
+            if(item.getProduct().equals(product)){
+                if(amount==0)
+                    it.remove();
+                else
+                    return item.modifyItself(amount);
+            }
+        }
+        return false;
     }
 
     @Override
@@ -32,5 +51,17 @@ public class Cart {
         stringBuilder.append("Total...\t\t\t" + total );
 
         return stringBuilder.toString();
+    }
+
+	public boolean removeAll() {
+		return items.removeAll(items);
+    }
+    
+    public double total(){
+        double sum = 0;
+        for(Item item:items){
+            sum += item.value();
+        }
+        return sum;
     }
 }

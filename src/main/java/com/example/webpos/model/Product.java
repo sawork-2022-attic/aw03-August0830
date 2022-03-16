@@ -11,6 +11,13 @@ public class Product {
     private double price;
     private String image;
 
+    /**
+     * @return the price
+     */
+    public double getPrice() {
+        return price;
+    }
+
     @Override
     public String toString() {
         return getId() + "\t" + getName() + "\t" + getPrice();

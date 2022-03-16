@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class PosController {
@@ -19,7 +21,39 @@ public class PosController {
 
     @GetMapping("/")
     public String pos(Model model) {
-        posService.add("PD1",2);
+        model.addAttribute("products", posService.products());
+        model.addAttribute("cart", posService.getCart());
+        return "index";
+    }
+
+    @GetMapping("/add")
+    public String add(@RequestParam(name = "pid") String pid,Model model){
+        posService.add(pid, 1);
+        model.addAttribute("products", posService.products());
+        model.addAttribute("cart", posService.getCart());
+        return "index";
+    }
+
+    @GetMapping("/modify")
+    public String modify(@RequestParam(name = "pid") String pid,
+    @RequestParam(name = "quantity") int quantity, Model model){
+        posService.modify(pid, quantity);
+        model.addAttribute("products", posService.products());
+        model.addAttribute("cart", posService.getCart());
+        return "index";
+    }
+
+    @GetMapping("/remove")
+    public String remove(@RequestParam(name = "pid") String pid,Model model){
+        posService.remove(pid);
+        model.addAttribute("products", posService.products());
+        model.addAttribute("cart", posService.getCart());
+        return "index";
+    }
+
+    @GetMapping("/empty")
+    public String empty(Model model){
+        posService.empty();
         model.addAttribute("products", posService.products());
         model.addAttribute("cart", posService.getCart());
         return "index";
